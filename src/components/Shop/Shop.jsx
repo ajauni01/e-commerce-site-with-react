@@ -56,8 +56,10 @@ const Shop = () => {
         addToDb(product.id)
     }
 
-    const handleClearCart = () => {
+    // function to handle the clear cart from the shop.jsx
+    let handleClearCart = () => {
         setCart([]);
+        // remove the items from the local storage too
         deleteShoppingCart();
     }
 
@@ -74,12 +76,9 @@ const Shop = () => {
             </div>
             <div className="cart-container">
                 <Cart
-                    cart={cart}
-                    handleClearCart={handleClearCart}
-                >
-                    <Link className='proceed-link' to="/orders">
-                        <button className='btn-proceed'>Review Order</button>
-                    </Link>
+                    cart={cart} handleClearCart={handleClearCart}>
+                    <Link to="/orders"><button>Review Order</button></Link >
+
                 </Cart>
             </div>
         </div>

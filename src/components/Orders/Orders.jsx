@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 import Cart from '../Cart/Cart';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import ReviewItems from '../ReviewItems/ReviewItems';
 import './Orders.css'
-import { removeFromDb } from '../../utilities/fakedb';
+import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
 const Orders = () => {
     // here, savedCart should only be used for the initial state to extract data while making any change
     let savedCart = useLoaderData();
@@ -19,6 +19,12 @@ const Orders = () => {
         setCart(cartRemaining);
         // call the removeFromDb function, and pass the id to get the item deleted permanently from the local storage or data base.
         removeFromDb(id);
+    }
+    // function to clear the cart
+    let handleClearCart = () => {
+        setCart([]);
+        deleteShoppingCart();
+
 
     }
     console.log(savedCart);
@@ -31,7 +37,9 @@ const Orders = () => {
             </div>
 
             <div className='cart-container'>
-                <Cart cart={cart}></Cart>
+                <Cart cart={cart} handleClearCart={handleClearCart}>
+                    <Link to='/checkout'><button>Proceed to Checkout</button></Link>
+                </Cart>
             </div>
         </div>
     );

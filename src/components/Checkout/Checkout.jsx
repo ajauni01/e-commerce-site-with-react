@@ -1,11 +1,18 @@
+
+
 import React from 'react';
+import './Checkout.css'
 
 const Checkout = () => {
-    return (
-        <div>
-            <h2>Checkout your order!!! page </h2>
-        </div>
-    );
+  return (
+    <div>
+      <h1>Checkout your order!!
+
+        Thank you!
+      </h1>
+
+    </div>
+  );
 };
 
 export default Checkout;

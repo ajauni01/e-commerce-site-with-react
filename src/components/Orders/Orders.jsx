@@ -1,48 +1,39 @@
+
+
 import React, { useState } from 'react';
 import Cart from '../Cart/Cart';
-import { Link, useLoaderData } from 'react-router-dom';
-import ReviewItem from '../ReviewItem/ReviewItem';
-import './Orders.css';
-import { deleteShoppingCart, removeFromDb } from '../../utilities/fakedb';
-
+import { useLoaderData } from 'react-router-dom';
+import ReviewItems from '../ReviewItems/ReviewItems';
+import './Orders.css'
+import { removeFromDb } from '../../utilities/fakedb';
 const Orders = () => {
-    const savedCart = useLoaderData();
-    const [cart, setCart] = useState(savedCart);
-
-    const handleRemoveFromCart = (id) => {
-        const remaining = cart.filter(product => product.id !== id);
-        setCart(remaining);
+    // here, savedCart should only be used for the initial state to extract data while making any change
+    let savedCart = useLoaderData();
+    // use the useState() hook to initiate any change
+    let [cart, setCart] = useState(savedCart);
+    //    function to handle the product removal from the cart
+    let handleRemoveFromCart = (id) => {
+        // use the filter property to get the items which are not to be deleted or removed
+        let cartRemaining = cart.filter(product => product.id !== id);
+        // update the useState() hook
+        setCart(cartRemaining);
+        // call the removeFromDb function, and pass the id to get the item deleted permanently from the local storage or data base.
         removeFromDb(id);
-    }
 
-    const handleClearCart = () => {
-        setCart([]);
-        deleteShoppingCart();
     }
-
+    console.log(savedCart);
     return (
-        <div className='shop-container'>
-            <div className='review-container'>
+        <div className='shop-container '>
+            <div className='review-container '>
                 {
-                    cart.map(product => <ReviewItem
-                        key={product.id}
-                        product={product}
-                        handleRemoveFromCart={handleRemoveFromCart}
-                    ></ReviewItem>)
+                    cart.map(product => <ReviewItems key={product.id} product={product} handleRemoveFromCart={handleRemoveFromCart}></ReviewItems>)
                 }
             </div>
+
             <div className='cart-container'>
-                <Cart
-                    cart={cart}
-                    handleClearCart={handleClearCart}
-                >
-                    <Link className='proceed-link' to="/checkout">
-                        <button className='btn-proceed'>Proceed Checkout</button>
-                    </Link>
-                </Cart>
+                <Cart cart={cart}></Cart>
             </div>
         </div>
     );
 };
-
 export default Orders;

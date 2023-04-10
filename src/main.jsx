@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App'
 import './index.css'
 import {
   createBrowserRouter,
@@ -8,11 +7,9 @@ import {
 } from "react-router-dom";
 import Shop from './components/Shop/Shop';
 import Home from './components/Layout/Home';
-import Orders from './components/Orders/Orders';
-import Inventory from './components/Inventory/Inventory';
-import Login from './components/Login/Login';
-import cartProductsLoader from './loaders/cartProductsLoader';
-import Checkout from './components/Checkout/Checkout';
+import Orders from './components/Orders/Orders'
+import Inventory from './components/Inventory/Inventory'
+import productsLoader from './customLoader/cartProductsLoader';
 
 const router = createBrowserRouter([
   {
@@ -24,22 +21,15 @@ const router = createBrowserRouter([
         element: <Shop></Shop>
       },
       {
-        path: 'orders',
+        path: '/orders',
         element: <Orders></Orders>,
-        loader: cartProductsLoader
+        loader: productsLoader
       },
       {
-        path: 'inventory',
+        path: '/inventory',
         element: <Inventory></Inventory>
       },
-      {
-        path:'checkout',
-        element: <Checkout></Checkout>
-      },
-      {
-        path: 'login',
-        element: <Login></Login>
-      }
+
     ]
   }
 ])
